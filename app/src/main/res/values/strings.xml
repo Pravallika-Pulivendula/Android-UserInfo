@@ -7,9 +7,11 @@
     <string name="address">Enter your area Address</string>
     <string name="validate">Validate</string>
     <string name="update_your_profile">Update your Profile</string>
-    <string name="usernameTV">Username</string>
-    <string name="emailTV">Email</string>
-    <string name="phone_numberTV">Phone Number</string>
-    <string name="pincodeTV">Pincode</string>
-    <string name="addressTV">Address</string>
+    <string name="usernameTV">Username:</string>
+    <string name="emailTV">Email:</string>
+    <string name="phone_numberTV">Phone Number:</string>
+    <string name="pincodeTV">Pincode:</string>
+    <string name="addressTV">Address:</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>
