@@ -6,12 +6,12 @@
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#e5e5e5"
-        tools:context=".EditActivity"
-        android:id="@+id/layout"
-        android:visibility="visible">
+        android:visibility="visible"
+        tools:context=".EditActivity">
 
         <TextView
             android:id="@+id/headerTV"
@@ -54,6 +54,7 @@
             android:paddingLeft="10dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            android:tag="Username"
             android:textColor="#838383"
             android:textColorHint="#838383"
             app:layout_constraintEnd_toEndOf="parent"
@@ -89,6 +90,7 @@
             android:paddingLeft="10dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            android:tag="Email"
             android:textColor="#838383"
             android:textColorHint="#838383"
             app:layout_constraintEnd_toEndOf="parent"
@@ -123,6 +125,7 @@
             android:paddingLeft="10dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            android:tag="Phone Number"
             android:textColor="#838383"
             android:textColorHint="#838383"
             app:layout_constraintEnd_toEndOf="parent"
@@ -157,6 +160,7 @@
             android:paddingLeft="10dp"
             android:paddingTop="15dp"
             android:paddingBottom="15dp"
+            android:tag="Pincode"
             android:textColor="#838383"
             android:textColorHint="#838383"
             app:layout_constraintEnd_toEndOf="parent"
@@ -192,6 +196,7 @@
             android:paddingTop="15dp"
             android:paddingBottom="80dp"
             android:scrollbars="vertical"
+            android:tag="Address"
             android:textColor="#838383"
             android:textColorHint="#838383"
             app:layout_constraintEnd_toEndOf="parent"
@@ -216,5 +221,44 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addressET" />
 
+        <Button
+            android:id="@+id/confirmButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#31a7ea"
+            android:padding="10dp"
+            android:text="@string/confirm"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addressET" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:backgroundTint="#31a7ea"
+            android:padding="10dp"
+            android:text="@string/cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/confirmButton" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </ScrollView>
