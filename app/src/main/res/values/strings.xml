@@ -1,3 +1,15 @@
 <resources>
-    <string name="app_name">UserInfo</string>
+    <string name="app_name">User Info</string>
+    <string name="username">Enter your Username</string>
+    <string name="phone_number">Enter your Phone number</string>
+    <string name="email">Enter your Email</string>
+    <string name="pincode">Enter your area Pincode</string>
+    <string name="address">Enter your area Address</string>
+    <string name="validate">Validate</string>
+    <string name="update_your_profile">Update your Profile</string>
+    <string name="usernameTV">Username</string>
+    <string name="emailTV">Email</string>
+    <string name="phone_numberTV">Phone Number</string>
+    <string name="pincodeTV">Pincode</string>
+    <string name="addressTV">Address</string>
 </resources>
