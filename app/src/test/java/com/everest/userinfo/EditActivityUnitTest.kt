@@ -13,7 +13,7 @@ import org.junit.runners.JUnit4
 
 
 @RunWith(JUnit4::class)
-class EditActivityTest {
+class EditActivityUnitTest {
 
     @MockK
     private lateinit var editActivity: EditActivity
@@ -31,27 +31,6 @@ class EditActivityTest {
         val phoneNumber = 9087612345
         val isValid:Boolean = editActivity.isPhoneNumberValid(phoneNumber.toString())
         assertTrue(isValid)
-    }
-
-    @Test
-    fun shouldReturnFalseWhenPhoneNumberIsNotValid(){
-        val phoneNumber = 78239
-        val isValid:Boolean = editActivity.isPhoneNumberValid(phoneNumber.toString())
-        assertFalse(isValid)
-    }
-
-    @Test
-    fun shouldReturnTrueWhenEmailIsValid(){
-        val email = "pravallikap@gmail.com"
-        val isValid:Boolean = editActivity.isEmailValid(email)
-        assertTrue(isValid)
-    }
-
-    @Test
-    fun shouldReturnFalseWhenEmailIsNotValid(){
-        val email = "pravallika"
-        val isValid:Boolean = editActivity.isEmailValid(email)
-        assertFalse(isValid)
     }
 
 }
