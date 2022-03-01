@@ -2,7 +2,6 @@ package com.everest.userinfo
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import io.mockk.impl.annotations.MockK
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
@@ -32,5 +31,13 @@ class EditActivityUnitTest {
         val isValid:Boolean = editActivity.isPhoneNumberValid(phoneNumber.toString())
         assertTrue(isValid)
     }
+
+    @Test
+    fun shouldReturnTrueWhenPincodeIsValid(){
+        val pincode = 987663
+        val isValid:Boolean = editActivity.isPinCodeValid(pincode.toString())
+        assertTrue(isValid)
+    }
+
 
 }
