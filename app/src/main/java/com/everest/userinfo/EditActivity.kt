@@ -1,7 +1,7 @@
 package com.everest.userinfo
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.everest.userinfo.databinding.ActivityEditBinding
 
 
+@SuppressLint("SetTextI18n")
 class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding
     private var isEnabled: Boolean = false
@@ -42,14 +43,33 @@ class EditActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt("validate_button", binding.validateButton.visibility)
+        outState.putInt("visibility", binding.validateButton.visibility)
+
         outState.putInt("confirm_button", binding.confirmButton.visibility)
         outState.putInt("cancel_button", binding.cancelButton.visibility)
-        outState.putBoolean("userName", binding.usernameET.isEnabled)
-        outState.putBoolean("email", binding.emailET.isEnabled)
-        outState.putBoolean("phno", binding.phoneNumberET.isEnabled)
-        outState.putBoolean("pincode", binding.pincodeET.isEnabled)
-        outState.putBoolean("address", binding.addressET.isEnabled)
+        outState.putInt("userNameET", binding.usernameET.visibility)
+        outState.putInt("emailET", binding.emailET.visibility)
+        outState.putInt("phoneNumberET", binding.phoneNumberET.visibility)
+        outState.putInt("pincodeET", binding.pincodeET.visibility)
+        outState.putInt("addressET", binding.addressET.visibility)
+
+        outState.putInt("userNameTV", binding.usernameTV.visibility)
+        outState.putInt("emailTV", binding.emailTV.visibility)
+        outState.putInt("phoneNumberTV", binding.phoneNumberTV.visibility)
+        outState.putInt("pincodeTV", binding.pincodeTV.visibility)
+        outState.putInt("addressTV", binding.addressTV.visibility)
+
+        outState.putString("userName", binding.usernameET.text.toString())
+        outState.putString("email", binding.emailET.text.toString())
+        outState.putString("phoneNumber", binding.phoneNumberET.text.toString())
+        outState.putString("pincode", binding.pincodeET.text.toString())
+        outState.putString("address", binding.addressET.text.toString())
+
+        outState.putInt("savedUserNameTV", binding.savedUsernameTV.visibility)
+        outState.putInt("savedEmailTV", binding.savedEmailTV.visibility)
+        outState.putInt("savedPhoneNumberTV", binding.savedPhoneNumberTV.visibility)
+        outState.putInt("savedPincodeTV", binding.savedPincodeTV.visibility)
+        outState.putInt("savedAddressTV", binding.savedAddressTV.visibility)
         super.onSaveInstanceState(outState)
     }
 
@@ -57,28 +77,35 @@ class EditActivity : AppCompatActivity() {
         binding.validateButton.visibility = savedInstanceState.getInt("validate_button")
         binding.cancelButton.visibility = savedInstanceState.getInt("cancel_button")
         binding.confirmButton.visibility = savedInstanceState.getInt("confirm_button")
-        isEnabled = savedInstanceState.getBoolean("userName")
-        if (!isEnabled) {
-            setBackgroundResourceForEditText(binding.layout)
-        }
-        binding.usernameET.isEnabled = savedInstanceState.getBoolean("userName")
-        binding.emailET.isEnabled = savedInstanceState.getBoolean("email")
-        binding.phoneNumberET.isEnabled = savedInstanceState.getBoolean("phno")
-        binding.pincodeET.isEnabled = savedInstanceState.getBoolean("pincode")
-        binding.addressET.isEnabled = savedInstanceState.getBoolean("address")
-        super.onRestoreInstanceState(savedInstanceState)
-    }
+        binding.usernameET.visibility = savedInstanceState.getInt("userNameET")
+        binding.emailET.visibility = savedInstanceState.getInt("emailET")
+        binding.phoneNumberET.visibility = savedInstanceState.getInt("phoneNumberET")
+        binding.pincodeET.visibility = savedInstanceState.getInt("pincodeET")
+        binding.addressET.visibility = savedInstanceState.getInt("addressET")
 
-    private fun setBackgroundResourceForEditText(layout: ConstraintLayout) {
-        for (i in 0 until layout.childCount) {
-            val v = layout.getChildAt(i)
-            if (v is EditText) {
-                v.isEnabled = false
-                v.setBackgroundResource(0)
-                v.setPadding(2, 2, 2, 2)
-                v.setTextColor(Color.parseColor("#000000"))
-            }
-        }
+        binding.usernameTV.visibility = savedInstanceState.getInt("userNameTV")
+        binding.emailTV.visibility = savedInstanceState.getInt("emailTV")
+        binding.phoneNumberTV.visibility = savedInstanceState.getInt("phoneNumberTV")
+        binding.pincodeTV.visibility = savedInstanceState.getInt("pincodeTV")
+        binding.addressTV.visibility = savedInstanceState.getInt("addressTV")
+
+
+        binding.savedUsernameTV.visibility = savedInstanceState.getInt("savedUserNameTV")
+        binding.savedEmailTV.visibility = savedInstanceState.getInt("savedEmailTV")
+        binding.savedPhoneNumberTV.visibility = savedInstanceState.getInt("savedPhoneNumberTV")
+        binding.savedPincodeTV.visibility = savedInstanceState.getInt("savedPincodeTV")
+        binding.savedAddressTV.visibility = savedInstanceState.getInt("savedAddressTV")
+
+        val isVisibile: Boolean = savedInstanceState.getBoolean("visibility")
+
+        binding.savedUsernameTV.text = "Name: " + savedInstanceState.getString("userName")
+        binding.savedEmailTV.text = "Email: " + savedInstanceState.getString("email")
+        binding.savedPhoneNumberTV.text =
+            "Phone number: " + savedInstanceState.getString("phoneNumber")
+        binding.savedPincodeTV.text = "Pincode: " + savedInstanceState.getString("pincode")
+        binding.savedAddressTV.text = "Address: " + savedInstanceState.getString("address")
+
+        super.onRestoreInstanceState(savedInstanceState)
     }
 
     private fun validateData() {
@@ -93,28 +120,30 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun confirmDetails(layout: ConstraintLayout) {
-        val headerText = "Your Details!"
-        setBackgroundResourceForEditText(binding.layout)
-        binding.confirmButton.visibility = View.VISIBLE
-        binding.cancelButton.visibility = View.VISIBLE
-        binding.validateButton.visibility = View.INVISIBLE
-        binding.headerTV.text = headerText
+        for (i in 0 until layout.childCount) {
+            val v = layout.getChildAt(i)
+            if (v.getVisibility() == View.VISIBLE) {
+                v.visibility = View.INVISIBLE
+            } else {
+                v.visibility = View.VISIBLE
+            }
+        }
+        binding.savedUsernameTV.text = "Name: " + binding.usernameET.text
+        binding.savedEmailTV.text = "Email: " + binding.emailET.text
+        binding.savedPhoneNumberTV.text = "Phone Number: " + binding.phoneNumberET.text
+        binding.savedPincodeTV.text = "Pincode: " + binding.pincodeET.text
+        binding.savedAddressTV.text = "Address: " + binding.addressET.text
+
     }
 
     private fun editDetails(layout: ConstraintLayout) {
-        val headerText = "Update the Profile"
         for (i in 0 until layout.childCount) {
             val v = layout.getChildAt(i)
-            if (v is EditText) {
-                v.isEnabled = true
-                v.setBackgroundResource(R.drawable.rounded_border_edittext)
-                v.setPadding(40, 45, 45, 40)
+            if (v.getVisibility() == View.VISIBLE) {
+                v.visibility = View.INVISIBLE
+            } else {
+                v.visibility = View.VISIBLE
             }
-            binding.addressET.setPadding(40, 45, 45, 170)
-            binding.cancelButton.visibility = View.INVISIBLE
-            binding.confirmButton.visibility = View.INVISIBLE
-            binding.validateButton.visibility = View.VISIBLE
-            binding.headerTV.text = headerText
         }
     }
 
