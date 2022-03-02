@@ -1,5 +1,7 @@
 package com.everest.userinfo
 
+import android.text.Html
+import androidx.core.text.HtmlCompat
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -39,6 +41,12 @@ class EditActivityInstrumentedTest {
         onView(withId(R.id.phoneNumberET)).check(matches(withText("9189934567")))
         onView(withId(R.id.pincodeET)).check(matches(withText("890765")))
         onView(withId(R.id.addressET)).check(matches(withText("Pulivendula")))
+
+        onView(withId(R.id.confirmButton)).perform(click())
+
+        val resultText = "Hi Pravallika, How are you? Are you staying at Pulivendula-890765. I am not able to contact you on 9189934567. Can I email you the details at pravallika@gmail.com"
+
+        onView(withId(R.id.detailsTV)).check(matches(withText(resultText)))
 
     }
 }
