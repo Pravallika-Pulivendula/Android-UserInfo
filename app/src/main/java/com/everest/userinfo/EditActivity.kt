@@ -42,30 +42,33 @@ class EditActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt("validate_button", binding.validateButton.visibility)
-        outState.putInt("confirm_button", binding.confirmButton.visibility)
-        outState.putInt("cancel_button", binding.cancelButton.visibility)
-        outState.putBoolean("userName", binding.usernameET.isEnabled)
-        outState.putBoolean("email", binding.emailET.isEnabled)
-        outState.putBoolean("phno", binding.phoneNumberET.isEnabled)
-        outState.putBoolean("pincode", binding.pincodeET.isEnabled)
-        outState.putBoolean("address", binding.addressET.isEnabled)
+        outState.putInt(VALIDATE_BUTTON, binding.validateButton.visibility)
+        outState.putInt(CONFIRM_BUTTON, binding.confirmButton.visibility)
+        outState.putInt(CANCEL_BUTTON, binding.cancelButton.visibility)
+        outState.putBoolean(USERNAME, binding.usernameET.isEnabled)
+        outState.putBoolean(EMAIL, binding.emailET.isEnabled)
+        outState.putBoolean(PHONE_NUMBER, binding.phoneNumberET.isEnabled)
+        outState.putBoolean(PINCODE, binding.pincodeET.isEnabled)
+        outState.putBoolean(ADDRESS, binding.addressET.isEnabled)
+        outState.putString(HEADER_TEXT,binding.headerTV.text.toString())
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        binding.validateButton.visibility = savedInstanceState.getInt("validate_button")
-        binding.cancelButton.visibility = savedInstanceState.getInt("cancel_button")
-        binding.confirmButton.visibility = savedInstanceState.getInt("confirm_button")
-        isEnabled = savedInstanceState.getBoolean("userName")
+        binding.validateButton.visibility = savedInstanceState.getInt(VALIDATE_BUTTON)
+        binding.cancelButton.visibility = savedInstanceState.getInt(CANCEL_BUTTON)
+        binding.confirmButton.visibility = savedInstanceState.getInt(CONFIRM_BUTTON)
+        isEnabled = savedInstanceState.getBoolean(USERNAME)
         if (!isEnabled) {
             customizeEditTextToDisplayEnteredDetails(binding.layout)
         }
-        binding.usernameET.isEnabled = savedInstanceState.getBoolean("userName")
-        binding.emailET.isEnabled = savedInstanceState.getBoolean("email")
-        binding.phoneNumberET.isEnabled = savedInstanceState.getBoolean("phno")
-        binding.pincodeET.isEnabled = savedInstanceState.getBoolean("pincode")
-        binding.addressET.isEnabled = savedInstanceState.getBoolean("address")
+        binding.usernameET.isEnabled = savedInstanceState.getBoolean(USERNAME)
+        binding.emailET.isEnabled = savedInstanceState.getBoolean(EMAIL)
+        binding.phoneNumberET.isEnabled = savedInstanceState.getBoolean(PHONE_NUMBER)
+        binding.pincodeET.isEnabled = savedInstanceState.getBoolean(PINCODE)
+        binding.addressET.isEnabled = savedInstanceState.getBoolean(ADDRESS)
+
+        binding.headerTV.text = savedInstanceState.getString(HEADER_TEXT)
         super.onRestoreInstanceState(savedInstanceState)
     }
 
@@ -93,16 +96,14 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun confirmDetails(layout: ConstraintLayout) {
-        val headerText = "Your Details!"
         customizeEditTextToDisplayEnteredDetails(binding.layout)
         binding.confirmButton.visibility = View.VISIBLE
         binding.cancelButton.visibility = View.VISIBLE
         binding.validateButton.visibility = View.INVISIBLE
-        binding.headerTV.text = headerText
+        binding.headerTV.text = DETAILS_HEADER_TEXT
     }
 
     private fun editDetails(layout: ConstraintLayout) {
-        val headerText = "Update the Profile"
         for (i in 0 until layout.childCount) {
             val v = layout.getChildAt(i)
             if (v is EditText) {
@@ -114,7 +115,7 @@ class EditActivity : AppCompatActivity() {
             binding.cancelButton.visibility = View.INVISIBLE
             binding.confirmButton.visibility = View.INVISIBLE
             binding.validateButton.visibility = View.VISIBLE
-            binding.headerTV.text = headerText
+            binding.headerTV.text = UPDATE_HEADER_TEXT
         }
     }
 
