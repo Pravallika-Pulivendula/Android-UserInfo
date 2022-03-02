@@ -39,5 +39,11 @@ class EditActivityUnitTest {
         assertTrue(isValid)
     }
 
+    @Test
+    fun shouldReturnTrueWhenEmailIsValid(){
+        val email = "pravallika@gmail.com"
+        val isValid:Boolean = editActivity.isEmailValid(email)
+        assertTrue(isValid)
+    }
 
 }
