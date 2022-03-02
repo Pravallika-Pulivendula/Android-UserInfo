@@ -59,7 +59,7 @@ class EditActivity : AppCompatActivity() {
         binding.confirmButton.visibility = savedInstanceState.getInt("confirm_button")
         isEnabled = savedInstanceState.getBoolean("userName")
         if (!isEnabled) {
-            setBackgroundResourceForEditText(binding.layout)
+            customizeEditTextToDisplayEnteredDetails(binding.layout)
         }
         binding.usernameET.isEnabled = savedInstanceState.getBoolean("userName")
         binding.emailET.isEnabled = savedInstanceState.getBoolean("email")
@@ -69,7 +69,7 @@ class EditActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
     }
 
-    private fun setBackgroundResourceForEditText(layout: ConstraintLayout) {
+    private fun customizeEditTextToDisplayEnteredDetails(layout: ConstraintLayout) {
         for (i in 0 until layout.childCount) {
             val v = layout.getChildAt(i)
             if (v is EditText) {
@@ -94,7 +94,7 @@ class EditActivity : AppCompatActivity() {
 
     private fun confirmDetails(layout: ConstraintLayout) {
         val headerText = "Your Details!"
-        setBackgroundResourceForEditText(binding.layout)
+        customizeEditTextToDisplayEnteredDetails(binding.layout)
         binding.confirmButton.visibility = View.VISIBLE
         binding.cancelButton.visibility = View.VISIBLE
         binding.validateButton.visibility = View.INVISIBLE
