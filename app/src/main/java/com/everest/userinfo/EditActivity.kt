@@ -4,18 +4,21 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.everest.userinfo.databinding.ActivityEditBinding
-
+import java.util.regex.Pattern
 
 class EditActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEditBinding
     private var isEnabled: Boolean = false
+
+    private val EMAIL_ADDRESS_PATTERN: Pattern = Pattern.compile(
+        "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" + "\\@" + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" + "(" + "\\." + "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" + ")+"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +53,7 @@ class EditActivity : AppCompatActivity() {
         outState.putBoolean(PHONE_NUMBER, binding.phoneNumberET.isEnabled)
         outState.putBoolean(PINCODE, binding.pincodeET.isEnabled)
         outState.putBoolean(ADDRESS, binding.addressET.isEnabled)
-        outState.putString(HEADER_TEXT,binding.headerTV.text.toString())
+        outState.putString(HEADER_TEXT, binding.headerTV.text.toString())
         super.onSaveInstanceState(outState)
     }
 
@@ -91,11 +94,11 @@ class EditActivity : AppCompatActivity() {
                 binding.phoneNumberET.text.toString()
             ) && isPinCodeValid(binding.pincodeET.text.toString())
         ) {
-            confirmDetails(binding.layout)
+            confirmDetails()
         }
     }
 
-    private fun confirmDetails(layout: ConstraintLayout) {
+    private fun confirmDetails() {
         customizeEditTextToDisplayEnteredDetails(binding.layout)
         binding.confirmButton.visibility = View.VISIBLE
         binding.cancelButton.visibility = View.VISIBLE
@@ -152,7 +155,7 @@ class EditActivity : AppCompatActivity() {
     }
 
     fun isEmailValid(email: String): Boolean {
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
             Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show()
             return false
         }
