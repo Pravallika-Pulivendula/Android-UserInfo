@@ -45,31 +45,20 @@ class EditActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(VALIDATE_BUTTON, binding.validateButton.visibility)
-        outState.putInt(CONFIRM_BUTTON, binding.confirmButton.visibility)
-        outState.putInt(CANCEL_BUTTON, binding.cancelButton.visibility)
-        outState.putBoolean(USERNAME, binding.usernameET.isEnabled)
-        outState.putBoolean(EMAIL, binding.emailET.isEnabled)
-        outState.putBoolean(PHONE_NUMBER, binding.phoneNumberET.isEnabled)
-        outState.putBoolean(PINCODE, binding.pincodeET.isEnabled)
-        outState.putBoolean(ADDRESS, binding.addressET.isEnabled)
+        outState.putInt(BUTTONS_VISIBILITY, binding.buttonsVisibility.visibility)
+        outState.putBoolean(FOCUS_EDIT_TEXT, binding.editTextFocusable.isEnabled)
         outState.putString(HEADER_TEXT, binding.headerTV.text.toString())
         super.onSaveInstanceState(outState)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         binding.validateButton.visibility = savedInstanceState.getInt(VALIDATE_BUTTON)
-        binding.cancelButton.visibility = savedInstanceState.getInt(CANCEL_BUTTON)
-        binding.confirmButton.visibility = savedInstanceState.getInt(CONFIRM_BUTTON)
-        isEnabled = savedInstanceState.getBoolean(USERNAME)
+        binding.buttonsVisibility.visibility = savedInstanceState.getInt(BUTTONS_VISIBILITY)
+        isEnabled = savedInstanceState.getBoolean(FOCUS_EDIT_TEXT)
         if (!isEnabled) {
             customizeEditTextToDisplayEnteredDetails(binding.layout)
         }
-        binding.usernameET.isEnabled = savedInstanceState.getBoolean(USERNAME)
-        binding.emailET.isEnabled = savedInstanceState.getBoolean(EMAIL)
-        binding.phoneNumberET.isEnabled = savedInstanceState.getBoolean(PHONE_NUMBER)
-        binding.pincodeET.isEnabled = savedInstanceState.getBoolean(PINCODE)
-        binding.addressET.isEnabled = savedInstanceState.getBoolean(ADDRESS)
-
+        binding.editTextFocusable.isEnabled = savedInstanceState.getBoolean(FOCUS_EDIT_TEXT)
         binding.headerTV.text = savedInstanceState.getString(HEADER_TEXT)
         super.onRestoreInstanceState(savedInstanceState)
     }
