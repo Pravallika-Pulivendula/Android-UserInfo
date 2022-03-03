@@ -101,7 +101,7 @@ class EditActivity : AppCompatActivity() {
         binding.confirmButton.visibility = View.VISIBLE
         binding.cancelButton.visibility = View.VISIBLE
         binding.validateButton.visibility = View.INVISIBLE
-        binding.headerTV.text = DETAILS_HEADER_TEXT
+        binding.headerTV.text = R.string.details_header_text.toString()
     }
 
     private fun editDetails(layout: ConstraintLayout) {
@@ -116,8 +116,12 @@ class EditActivity : AppCompatActivity() {
             binding.cancelButton.visibility = View.INVISIBLE
             binding.confirmButton.visibility = View.INVISIBLE
             binding.validateButton.visibility = View.VISIBLE
-            binding.headerTV.text = UPDATE_HEADER_TEXT
+            binding.headerTV.text = R.string.update_header_text.toString()
         }
+    }
+
+    fun getToastMessage(toastMessage: String) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
     }
 
     fun areFieldsEmpty(layout: ConstraintLayout): Boolean {
@@ -126,7 +130,7 @@ class EditActivity : AppCompatActivity() {
             if (v is EditText) {
                 val fieldName = v.getTag().toString()
                 if (TextUtils.isEmpty(v.text)) {
-                    getToastMessage(fieldName + FIELD_REQUIRED_TOAST_MESSAGE)
+                    getToastMessage(fieldName + R.string.field_is_required)
                     return false
                 }
             }
@@ -136,7 +140,7 @@ class EditActivity : AppCompatActivity() {
 
     fun isPhoneNumberValid(phoneNumber: String): Boolean {
         if (phoneNumber.length != 10) {
-            getToastMessage(PHONE_NUMBER_TOAST_MESSAGE)
+            getToastMessage(R.string.phone_number_toast_message.toString())
             return false
         }
         return true
@@ -144,7 +148,7 @@ class EditActivity : AppCompatActivity() {
 
     fun isPinCodeValid(pinCode: String): Boolean {
         if (pinCode.length != 6) {
-            getToastMessage(PINCODE_TOAST_MESSAGE)
+            getToastMessage(R.string.pincode_toast_message.toString())
             return false
         }
         return true
@@ -152,14 +156,10 @@ class EditActivity : AppCompatActivity() {
 
     fun isEmailValid(email: String): Boolean {
         if (!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
-            getToastMessage(EMAIL_TOAST_MESSAGE)
+            getToastMessage(R.string.email_toast_message.toString())
             return false
         }
         return true
-    }
-
-    private fun getToastMessage(toastMessage: String) {
-        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
     }
 
 }
