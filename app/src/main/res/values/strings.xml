@@ -14,4 +14,8 @@
     <string name="addressTV">Address:</string>
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
+    <string name="email_toast_message">Email is not valid</string>
+    <string name="phone_number_toast_message">Phone number should not be less than 10</string>
+    <string name="pincode_toast_message">Pincode should not be less than 6</string>
+    <string name="field_is_required"> field is required</string>
 </resources>
