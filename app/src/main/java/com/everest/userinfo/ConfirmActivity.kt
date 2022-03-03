@@ -2,9 +2,7 @@ package com.everest.userinfo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.text.HtmlCompat
 import com.everest.userinfo.databinding.ActivityConfirmBinding
-
 
 class ConfirmActivity : AppCompatActivity() {
     private lateinit var binding: ActivityConfirmBinding
@@ -21,10 +19,15 @@ class ConfirmActivity : AppCompatActivity() {
         val address = intent.getStringExtra(ADDRESS)
 
 
-        val resultText =
-            "Hi <b>$userName</b>, How are you? Are you staying at <b>$address-$pincode</b>. I am not able to contact you on <b>$phoneNumber</b>. Can I email you the details at <b>$email</b>"
-
-        binding.detailsTV.text = HtmlCompat.fromHtml(resultText, HtmlCompat.FROM_HTML_MODE_LEGACY)
+        binding.detailsTV.text =
+            getString(
+                R.string.resultText,
+                userName,
+                address,
+                pincode,
+                phoneNumber,
+                email
+            )
     }
 
 }
