@@ -1,7 +1,6 @@
 package com.everest.userinfo
 
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
@@ -82,7 +81,6 @@ class EditActivity : AppCompatActivity() {
                 v.isEnabled = false
                 v.setBackgroundResource(0)
                 v.setPadding(2, 2, 2, 2)
-                v.setTextColor(Color.parseColor("#000000"))
             }
         }
     }
@@ -128,8 +126,7 @@ class EditActivity : AppCompatActivity() {
             if (v is EditText) {
                 val fieldName = v.getTag().toString()
                 if (TextUtils.isEmpty(v.text)) {
-                    Toast.makeText(this, "$fieldName field is required", Toast.LENGTH_SHORT)
-                        .show()
+                    getToastMessage(fieldName + FIELD_REQUIRED_TOAST_MESSAGE)
                     return false
                 }
             }
@@ -139,8 +136,7 @@ class EditActivity : AppCompatActivity() {
 
     fun isPhoneNumberValid(phoneNumber: String): Boolean {
         if (phoneNumber.length != 10) {
-            Toast.makeText(this, "Phone number shouldn't be less than 10", Toast.LENGTH_SHORT)
-                .show()
+            getToastMessage(PHONE_NUMBER_TOAST_MESSAGE)
             return false
         }
         return true
@@ -148,7 +144,7 @@ class EditActivity : AppCompatActivity() {
 
     fun isPinCodeValid(pinCode: String): Boolean {
         if (pinCode.length != 6) {
-            Toast.makeText(this, "Pincode shouldn't be less than 6", Toast.LENGTH_SHORT).show()
+            getToastMessage(PINCODE_TOAST_MESSAGE)
             return false
         }
         return true
@@ -156,10 +152,14 @@ class EditActivity : AppCompatActivity() {
 
     fun isEmailValid(email: String): Boolean {
         if (!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
-            Toast.makeText(this, "Email is not valid", Toast.LENGTH_SHORT).show()
+            getToastMessage(EMAIL_TOAST_MESSAGE)
             return false
         }
         return true
+    }
+
+    private fun getToastMessage(toastMessage: String) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
     }
 
 }
