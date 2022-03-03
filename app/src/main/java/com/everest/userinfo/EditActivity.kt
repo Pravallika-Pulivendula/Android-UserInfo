@@ -87,8 +87,7 @@ class EditActivity : AppCompatActivity() {
 
     private fun confirmDetails() {
         customizeEditTextToDisplayEnteredDetails(binding.layout)
-        binding.confirmButton.visibility = View.VISIBLE
-        binding.cancelButton.visibility = View.VISIBLE
+        binding.buttonsVisibility.visibility = View.VISIBLE
         binding.validateButton.visibility = View.INVISIBLE
         binding.headerTV.text = R.string.details_header_text.toString()
     }
@@ -102,8 +101,7 @@ class EditActivity : AppCompatActivity() {
                 v.setPadding(40, 45, 45, 40)
             }
             binding.addressET.setPadding(40, 45, 45, 170)
-            binding.cancelButton.visibility = View.INVISIBLE
-            binding.confirmButton.visibility = View.INVISIBLE
+            binding.buttonsVisibility.visibility = View.INVISIBLE
             binding.validateButton.visibility = View.VISIBLE
             binding.headerTV.text = R.string.update_header_text.toString()
         }
