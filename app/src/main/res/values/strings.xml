@@ -18,4 +18,5 @@
     <string name="phone_number_toast_message">Phone number should not be less than 10</string>
     <string name="pincode_toast_message">Pincode should not be less than 6</string>
     <string name="field_is_required"> field is required</string>
+    <string name="resultText">"Hi %1$s, How are you? Are you staying at %2$s-%3$s. I am not able to contact you on %4$s. Can I email you the details at %5$s"</string>
 </resources>
