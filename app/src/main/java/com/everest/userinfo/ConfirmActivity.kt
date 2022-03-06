@@ -12,21 +12,17 @@ class ConfirmActivity : AppCompatActivity() {
         binding = ActivityConfirmBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val userName = intent.getStringExtra(USERNAME)
-        val email = intent.getStringExtra(EMAIL)
-        val phoneNumber = intent.getStringExtra(PHONE_NUMBER)
-        val pincode = intent.getStringExtra(PINCODE)
-        val address = intent.getStringExtra(ADDRESS)
-
+        val data: Bundle? = intent.extras
+        val userDetails: UserDetails? = data?.getParcelable("userDetails");
 
         binding.detailsTV.text =
             getString(
                 R.string.resultText,
-                userName,
-                address,
-                pincode,
-                phoneNumber,
-                email
+                userDetails?.userName,
+                userDetails?.address,
+                userDetails?.pincode,
+                userDetails?.phoneNumber,
+                userDetails?.email
             )
     }
 
