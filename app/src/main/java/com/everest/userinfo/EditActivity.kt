@@ -3,11 +3,11 @@ package com.everest.userinfo
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import com.everest.userinfo.databinding.ActivityEditBinding
 import java.util.regex.Pattern
 
@@ -30,11 +30,16 @@ class EditActivity : AppCompatActivity() {
 
         binding.confirmButton.setOnClickListener {
             val intent = Intent(this, ConfirmActivity::class.java)
-            intent.putExtra(USERNAME, binding.usernameET.text.toString())
-            intent.putExtra(EMAIL, binding.emailET.text.toString())
-            intent.putExtra(PHONE_NUMBER, binding.phoneNumberET.text.toString())
-            intent.putExtra(PINCODE, binding.pincodeET.text.toString())
-            intent.putExtra(ADDRESS, binding.addressET.text.toString())
+            intent.putExtra(
+                "userDetails",
+                UserDetails(
+                    binding.usernameET.text.toString(),
+                    binding.emailET.text.toString(),
+                    binding.phoneNumberET.text.toString(),
+                    binding.pincodeET.text.toString(),
+                    binding.addressET.text.toString()
+                )
+            )
             startActivity(intent)
         }
 
@@ -46,7 +51,8 @@ class EditActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt(VALIDATE_BUTTON, binding.validateButton.visibility)
         outState.putInt(BUTTONS_VISIBILITY, binding.buttonsVisibility.visibility)
-        outState.putBoolean(FOCUS_EDIT_TEXT, binding.editTextFocusable.isEnabled)
+        outState.putBoolean(USERNAME, binding.usernameET.isEnabled)
+        outState.putBoolean(FOCUS_EDIT_TEXT, binding.editTextEnable.isEnabled)
         outState.putString(HEADER_TEXT, binding.headerTV.text.toString())
         super.onSaveInstanceState(outState)
     }
@@ -54,24 +60,46 @@ class EditActivity : AppCompatActivity() {
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         binding.validateButton.visibility = savedInstanceState.getInt(VALIDATE_BUTTON)
         binding.buttonsVisibility.visibility = savedInstanceState.getInt(BUTTONS_VISIBILITY)
-        isEnabled = savedInstanceState.getBoolean(FOCUS_EDIT_TEXT)
-        if (!isEnabled) {
-            customizeEditTextToDisplayEnteredDetails(binding.layout)
-        }
-        binding.editTextFocusable.isEnabled = savedInstanceState.getBoolean(FOCUS_EDIT_TEXT)
+        binding.editTextEnable.isEnabled = savedInstanceState.getBoolean(FOCUS_EDIT_TEXT)
+        isEnabled = savedInstanceState.getBoolean(USERNAME)
         binding.headerTV.text = savedInstanceState.getString(HEADER_TEXT)
+        if (!isEnabled) {
+            customizeEditText(binding.layout, false)
+        }
         super.onRestoreInstanceState(savedInstanceState)
     }
 
-    private fun customizeEditTextToDisplayEnteredDetails(layout: ConstraintLayout) {
+    private fun customizeEditText(
+        layout: ConstraintLayout,
+        isEnabled: Boolean,
+    ) {
         for (i in 0 until layout.childCount) {
             val v = layout.getChildAt(i)
             if (v is EditText) {
-                v.isEnabled = false
-                v.setBackgroundResource(0)
-                v.setPadding(2, 2, 2, 2)
+                v.isEnabled = isEnabled
             }
         }
+    }
+
+    private fun confirmDetails() {
+        customizeEditText(binding.layout, false)
+        changeButtonVisibility(visibile = true)
+        binding.headerTV.text = getString(R.string.details_header_text)
+    }
+
+    private fun changeButtonVisibility(visibile: Boolean) {
+        binding.buttonsVisibility.isVisible = visibile
+        binding.validateButton.isVisible = !visibile
+    }
+
+    private fun editDetails(layout: ConstraintLayout) {
+        customizeEditText(binding.layout, true)
+        changeButtonVisibility(visibile = false)
+        binding.headerTV.text = getString(R.string.update_header_text)
+    }
+
+    fun getToastMessage(toastMessage: String) {
+        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
     }
 
     private fun validateData() {
@@ -85,39 +113,13 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
-    private fun confirmDetails() {
-        customizeEditTextToDisplayEnteredDetails(binding.layout)
-        binding.buttonsVisibility.visibility = View.VISIBLE
-        binding.validateButton.visibility = View.INVISIBLE
-        binding.headerTV.text = R.string.details_header_text.toString()
-    }
-
-    private fun editDetails(layout: ConstraintLayout) {
-        for (i in 0 until layout.childCount) {
-            val v = layout.getChildAt(i)
-            if (v is EditText) {
-                v.isEnabled = true
-                v.setBackgroundResource(R.drawable.rounded_border_edittext)
-                v.setPadding(40, 45, 45, 40)
-            }
-            binding.addressET.setPadding(40, 45, 45, 170)
-            binding.buttonsVisibility.visibility = View.INVISIBLE
-            binding.validateButton.visibility = View.VISIBLE
-            binding.headerTV.text = R.string.update_header_text.toString()
-        }
-    }
-
-    fun getToastMessage(toastMessage: String) {
-        Toast.makeText(this, toastMessage, Toast.LENGTH_SHORT).show()
-    }
-
     fun areFieldsEmpty(layout: ConstraintLayout): Boolean {
         for (i in 0 until layout.childCount) {
             val v = layout.getChildAt(i)
             if (v is EditText) {
                 val fieldName = v.getTag().toString()
                 if (TextUtils.isEmpty(v.text)) {
-                    getToastMessage(fieldName + R.string.field_is_required)
+                    getToastMessage(fieldName + " " + getString(R.string.field_is_required))
                     return false
                 }
             }
@@ -127,7 +129,7 @@ class EditActivity : AppCompatActivity() {
 
     fun isPhoneNumberValid(phoneNumber: String): Boolean {
         if (phoneNumber.length != 10) {
-            getToastMessage(R.string.phone_number_toast_message.toString())
+            getToastMessage(getString(R.string.phone_number_toast_message))
             return false
         }
         return true
@@ -135,7 +137,7 @@ class EditActivity : AppCompatActivity() {
 
     fun isPinCodeValid(pinCode: String): Boolean {
         if (pinCode.length != 6) {
-            getToastMessage(R.string.pincode_toast_message.toString())
+            getToastMessage(getString(R.string.pincode_toast_message))
             return false
         }
         return true
@@ -143,10 +145,9 @@ class EditActivity : AppCompatActivity() {
 
     fun isEmailValid(email: String): Boolean {
         if (!EMAIL_ADDRESS_PATTERN.matcher(email).matches()) {
-            getToastMessage(R.string.email_toast_message.toString())
+            getToastMessage(getString(R.string.email_toast_message))
             return false
         }
         return true
     }
-
 }
