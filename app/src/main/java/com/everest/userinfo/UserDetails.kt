@@ -1,4 +1,4 @@
 package com.everest.userinfo
 
-class Validator {
+class UserDetails {
 }
