@@ -25,5 +25,4 @@ class ConfirmActivity : AppCompatActivity() {
                 userDetails?.email
             )
     }
-
 }
