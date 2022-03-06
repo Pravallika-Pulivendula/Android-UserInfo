@@ -1,6 +1,7 @@
 package com.everest.userinfo
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import io.mockk.impl.annotations.MockK
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -19,6 +20,7 @@ class EditActivityUnitTest {
 
     @get:Rule
     val rule:TestRule = InstantTaskExecutorRule()
+
 
     @Before
     fun setUp(){
@@ -45,5 +47,6 @@ class EditActivityUnitTest {
         val isValid:Boolean = editActivity.isEmailValid(email)
         assertTrue(isValid)
     }
+
 
 }
