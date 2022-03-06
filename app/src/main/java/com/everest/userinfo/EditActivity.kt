@@ -1,6 +1,5 @@
 package com.everest.userinfo
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
@@ -14,13 +13,8 @@ class EditActivity : AppCompatActivity() {
     private lateinit var validator: Validator
     private var isEnabled: Boolean = false
 
-    companion object {
-        lateinit var appContext: Context
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        appContext = applicationContext
         validator = Validator()
         binding = ActivityEditBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -100,11 +94,11 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun validateData() {
-        if (validator.areFieldsEmpty(binding.layout) && validator.isEmailValid(
-                binding.emailET.text.toString(),
+        if (validator.areFieldsEmpty(binding.layout, this@EditActivity) && validator.isEmailValid(
+                binding.emailET.text.toString(), this@EditActivity
             ) && validator.isPhoneNumberValid(
-                binding.phoneNumberET.text.toString()
-            ) && validator.isPinCodeValid(binding.pincodeET.text.toString())
+                binding.phoneNumberET.text.toString(), this@EditActivity
+            ) && validator.isPinCodeValid(binding.pincodeET.text.toString(), this@EditActivity)
         ) {
             confirmDetails()
         }
