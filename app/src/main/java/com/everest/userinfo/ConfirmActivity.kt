@@ -13,7 +13,7 @@ class ConfirmActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val data: Bundle? = intent.extras
-        val userDetails: UserDetails? = data?.getParcelable("userDetails");
+        val userDetails: UserDetails? = data?.getParcelable(USER_DETAILS);
 
         binding.detailsTV.text =
             getString(

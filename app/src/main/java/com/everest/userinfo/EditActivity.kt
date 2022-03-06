@@ -31,7 +31,7 @@ class EditActivity : AppCompatActivity() {
         binding.confirmButton.setOnClickListener {
             val intent = Intent(this, ConfirmActivity::class.java)
             intent.putExtra(
-                "userDetails",
+                USER_DETAILS,
                 UserDetails(
                     binding.usernameET.text.toString(),
                     binding.emailET.text.toString(),
@@ -49,8 +49,8 @@ class EditActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt(VALIDATE_BUTTON, binding.validateButton.visibility)
         outState.putInt(BUTTONS_VISIBILITY, binding.buttonsVisibility.visibility)
+        outState.putInt(VALIDATE_BUTTON, binding.validateButton.visibility)
         outState.putBoolean(USERNAME, binding.usernameET.isEnabled)
         outState.putBoolean(FOCUS_EDIT_TEXT, binding.editTextEnable.isEnabled)
         outState.putString(HEADER_TEXT, binding.headerTV.text.toString())
