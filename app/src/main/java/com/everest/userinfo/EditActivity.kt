@@ -76,7 +76,7 @@ class EditActivity : AppCompatActivity() {
         }
     }
 
-    private fun confirmDetails() {
+    private fun displayDetails() {
         customizeEditText(binding.layout, false)
         changeButtonVisibility(visible = true)
         binding.headerTV.text = getString(R.string.details_header_text)
@@ -100,7 +100,7 @@ class EditActivity : AppCompatActivity() {
                 binding.phoneNumberET.text.toString(), this@EditActivity
             ) && validator.isPinCodeValid(binding.pincodeET.text.toString(), this@EditActivity)
         ) {
-            confirmDetails()
+            displayDetails()
         }
     }
 }
