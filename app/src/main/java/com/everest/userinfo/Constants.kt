@@ -1,0 +1,8 @@
+package com.everest.userinfo
+
+const val USERNAME = "USERNAME"
+const val VALIDATE_BUTTON = "VALIDATE_BUTTON"
+const val BUTTONS_VISIBILITY = "BUTTONS_VISIBILITY"
+const val FOCUS_EDIT_TEXT = "FOCUS_EDIT_TEXT"
+const val HEADER_TEXT = "HEADER_TEXT"
+const val USER_DETAILS = "USER_DETAILS"
