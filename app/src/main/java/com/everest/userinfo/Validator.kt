@@ -9,6 +9,7 @@ import java.util.regex.Pattern
 
 class Validator {
     private val emailPattern: Pattern = Pattern.compile("^[A-za-z0-9_.-]+@[a-z]+\\.+(com|co.in)")
+    private val userNamePattern: Pattern = Pattern.compile("^[A-za-z][0-9]*$")
 
     fun areFieldsEmpty(layout: ConstraintLayout, context: Context): Boolean {
         for (i in 0 until layout.childCount) {
@@ -23,6 +24,14 @@ class Validator {
                     return false
                 }
             }
+        }
+        return true
+    }
+
+    fun isUserNameValid(userName: String, context: Context): Boolean {
+        if (!userNamePattern.matcher(userName).matches()) {
+            getToastMessage(context, context.getString(R.string.username_toast_message))
+            return false
         }
         return true
     }

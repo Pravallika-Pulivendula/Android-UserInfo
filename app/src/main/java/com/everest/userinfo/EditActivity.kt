@@ -94,7 +94,13 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun validateData() {
-        if (validator.areFieldsEmpty(binding.layout, this@EditActivity) && validator.isEmailValid(
+        if (validator.areFieldsEmpty(
+                binding.layout,
+                this@EditActivity
+            ) && (validator.isUserNameValid(
+                binding.usernameET.text.toString(),
+                this@EditActivity
+            )) && validator.isEmailValid(
                 binding.emailET.text.toString(), this@EditActivity
             ) && validator.isPhoneNumberValid(
                 binding.phoneNumberET.text.toString(), this@EditActivity
