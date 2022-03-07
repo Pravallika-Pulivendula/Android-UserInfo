@@ -8,6 +8,7 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -16,6 +17,15 @@ import org.junit.runner.RunWith
 class EditActivityInstrumentedTest {
     @get:Rule
     val activityScenario = ActivityScenarioRule(EditActivity::class.java)
+
+    @Before
+    fun setUp() {
+        onView(withId(R.id.usernameET)).perform(typeText("Pravallika"), closeSoftKeyboard())
+        onView(withId(R.id.emailET)).perform(typeText("pravallika@gmail.com"), closeSoftKeyboard())
+        onView(withId(R.id.phoneNumberET)).perform(typeText("9189934567"), closeSoftKeyboard())
+        onView(withId(R.id.pincodeET)).perform(typeText("890765"), closeSoftKeyboard())
+        onView(withId(R.id.addressET)).perform(typeText("Pulivendula"), closeSoftKeyboard())
+    }
 
     @Test
     fun useAppContext() {
@@ -26,11 +36,6 @@ class EditActivityInstrumentedTest {
 
     @Test
     fun shouldValidateDataAndAllowUserToEditEnteredDataWhenCancelButtonIsClicked() {
-        onView(withId(R.id.usernameET)).perform(typeText("Pravallika"), closeSoftKeyboard())
-        onView(withId(R.id.emailET)).perform(typeText("pravallika@gmail.com"), closeSoftKeyboard())
-        onView(withId(R.id.phoneNumberET)).perform(typeText("9189934567"), closeSoftKeyboard())
-        onView(withId(R.id.pincodeET)).perform(typeText("890765"), closeSoftKeyboard())
-        onView(withId(R.id.addressET)).perform(typeText("Pulivendula"), closeSoftKeyboard())
 
         onView(withId(R.id.validateButton)).perform(click())
 
@@ -58,11 +63,6 @@ class EditActivityInstrumentedTest {
 
     @Test
     fun shouldValidateDataAndDisplayTheUserSummaryWhenConfirmButtonIsClicked() {
-        onView(withId(R.id.usernameET)).perform(typeText("Pravallika"), closeSoftKeyboard())
-        onView(withId(R.id.emailET)).perform(typeText("pravallika@gmail.com"), closeSoftKeyboard())
-        onView(withId(R.id.phoneNumberET)).perform(typeText("9189934567"), closeSoftKeyboard())
-        onView(withId(R.id.pincodeET)).perform(typeText("890765"), closeSoftKeyboard())
-        onView(withId(R.id.addressET)).perform(typeText("Pulivendula"), closeSoftKeyboard())
 
         onView(withId(R.id.validateButton)).perform(click())
 
@@ -85,4 +85,5 @@ class EditActivityInstrumentedTest {
 
         onView(withId(R.id.detailsTV)).check(matches(withText(resultText)))
     }
+
 }
