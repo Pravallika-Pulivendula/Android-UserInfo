@@ -21,4 +21,5 @@
     <string name="resultText">"Hi %1$s, How are you? Are you staying at %2$s-%3$s. I am not able to contact you on %4$s. Can I email you the details at %5$s"</string>
     <string name="update_header_text">Update your details</string>
     <string name="details_header_text">Your Details!</string>
+    <string name="username_toast_message">Username is not valid.</string>
 </resources>
