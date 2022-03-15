@@ -3,14 +3,14 @@ package com.everest.userinfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.everest.userinfo.databinding.ActivityHomeBinding
+import com.everest.userinfo.databinding.ActivityMainBinding
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         super.onCreate(savedInstanceState)
 
@@ -19,7 +19,6 @@ class HomeActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             loadFragment(editFragment)
         }
-
     }
 
     private fun loadFragment(editFragment: Fragment) {
@@ -28,5 +27,4 @@ class HomeActivity : AppCompatActivity() {
             commit()
         }
     }
-
 }
