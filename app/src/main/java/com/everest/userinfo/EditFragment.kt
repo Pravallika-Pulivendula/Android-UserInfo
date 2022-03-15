@@ -34,6 +34,9 @@ class EditFragment : Fragment() {
         editViewModel = activity?.let { ViewModelProvider(it)[EditViewModel::class.java] }
             ?: throw RuntimeException("Not a Activity")
         displayFragment = DisplayFragment()
+        editViewModel.isValid.observe(viewLifecycleOwner) {
+            modifyViews(editViewModel.visibility.value)
+        }
 
         binding.validateButton.setOnClickListener {
             validateData()
