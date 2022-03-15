@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.everest.userinfo.databinding.FragmentEditBinding
@@ -34,8 +36,9 @@ class EditFragment : Fragment() {
         editViewModel = activity?.let { ViewModelProvider(it)[EditViewModel::class.java] }
             ?: throw RuntimeException("Not a Activity")
         displayFragment = DisplayFragment()
+
         editViewModel.isValid.observe(viewLifecycleOwner) {
-            modifyViews(editViewModel.visibility.value)
+            editViewModel.visibility.value?.let { it1 -> modifyViews(it1) }
         }
 
         binding.validateButton.setOnClickListener {
@@ -44,7 +47,7 @@ class EditFragment : Fragment() {
 
         binding.cancelButton.setOnClickListener {
             editViewModel.setVisibility(false)
-            modifyViews(editViewModel.visibility.value)
+            editViewModel.visibility.value?.let { it1 -> modifyViews(it1) }
         }
 
         binding.confirmButton.setOnClickListener {
@@ -72,13 +75,13 @@ class EditFragment : Fragment() {
         ) {
             editViewModel.isDataValid(true)
             editViewModel.setVisibility(true)
-            modifyViews(editViewModel.visibility.value)
+            editViewModel.visibility.value?.let { modifyViews(it) }
         }
     }
 
-    private fun modifyViews(visibility: Boolean?) {
-        editViewModel.changeVisibility(binding.buttonsVisibility, binding.validateButton)
-        editViewModel.customizeEditText(binding.layout, !visibility!!)
+    private fun modifyViews(visibility: Boolean) {
+        editViewModel.visibility.value?.let { changeVisibility(it) }
+        customizeEditText(!visibility)
     }
 
     private fun replaceFragment(displayFragment: DisplayFragment) {
@@ -87,6 +90,20 @@ class EditFragment : Fragment() {
             addToBackStack(null)
             commit()
         }
+    }
+
+    private fun customizeEditText(visibility: Boolean) {
+        for (i in 0 until binding.layout.childCount) {
+            val v = binding.layout.getChildAt(i)
+            if (v is EditText) {
+                v.isEnabled = visibility
+            }
+        }
+    }
+
+    private fun changeVisibility(visibility: Boolean) {
+        binding.buttonsVisibility.isVisible = visibility
+        binding.validateButton.isVisible = !visibility
     }
 
 }

@@ -29,11 +29,11 @@ class DisplayFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.detailsTV.text = getString(
             R.string.resultText,
-            editViewModel.username.value,
-            editViewModel.email.value,
-            editViewModel.phoneNumber.value,
-            editViewModel.pincode.value,
-            editViewModel.address.value
+            editViewModel.userDetails.value?.userName,
+            editViewModel.userDetails.value?.address,
+            editViewModel.userDetails.value?.pincode,
+            editViewModel.userDetails.value?.phoneNumber,
+            editViewModel.userDetails.value?.email
         )
     }
 }
